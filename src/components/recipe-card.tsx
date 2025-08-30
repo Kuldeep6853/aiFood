@@ -41,18 +41,8 @@ function formatNutritionalInfo(text: string) {
 }
 
 export function RecipeCard({ recipe }: { recipe: Recipe }) {
-  const imageUrl = `https://picsum.photos/seed/${recipe.name.replace(/\s/g, '')}/600/400`;
   return (
     <Card className="flex flex-col overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
-      <div className="relative w-full h-48">
-        <Image
-            src={imageUrl}
-            alt={recipe.name}
-            fill
-            style={{ objectFit: 'cover' }}
-            data-ai-hint={recipe.imagePrompt}
-        />
-      </div>
       <CardHeader>
         <CardTitle className="text-2xl font-headline">{recipe.name}</CardTitle>
       </CardHeader>
