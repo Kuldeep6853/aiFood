@@ -36,7 +36,7 @@ function formatInstructions(text: string) {
 function formatNutritionalInfo(text: string) {
     if (!text) return null;
     return text.split(',').map((info, index) => (
-        <Badge key={index} variant="secondary" className="whitespace-nowrap">{info.trim()}</Badge>
+        <Badge key={index} variant="secondary">{info.trim()}</Badge>
     ));
 }
 
