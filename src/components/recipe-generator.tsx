@@ -94,7 +94,10 @@ export function RecipeGenerator() {
                     <Leaf className="h-5 w-5"/>
                     Dietary Restrictions
                   </FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select 
+                    onValueChange={(value) => field.onChange(value === 'none' ? '' : value)} 
+                    defaultValue={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select a dietary preference" />
@@ -102,7 +105,7 @@ export function RecipeGenerator() {
                     </FormControl>
                     <SelectContent>
                       {dietaryOptions.map((option) => (
-                        <SelectItem key={option} value={option === "None" ? "" : option}>
+                        <SelectItem key={option} value={option === "None" ? "none" : option}>
                           {option}
                         </SelectItem>
                       ))}
