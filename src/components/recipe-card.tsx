@@ -16,11 +16,13 @@ function formatList(text: string) {
 
 function formatInstructions(text: string) {
     if (!text) return null;
-    
-    // Handles numbered lists in a single string, e.g., "1. Do this. 2. Do that."
-    const singleLineSteps = text.split(/\s*\d+\.\s*/).filter(Boolean);
-    if (singleLineSteps.length > 1) {
-        return singleLineSteps.map((step, index) => (
+
+    const steps = text
+        .split(/\s*\d+\.\s*/) // Split by "1.", "2.", etc.
+        .filter(step => step.trim().length > 0);
+
+    if (steps.length > 1) {
+        return steps.map((step, index) => (
             <li key={index} className="mb-2 flex gap-2">
                 <div className="flex-shrink-0 font-bold text-primary">{index + 1}.</div>
                 <div>{step.trim()}</div>
@@ -28,15 +30,15 @@ function formatInstructions(text: string) {
         ));
     }
 
-    // Handles lists separated by newlines, with or without numbers.
-    const multiLineSteps = text.split('\n').filter(Boolean);
-    return multiLineSteps.map((step, index) => (
+    // Fallback for instructions that are newline-separated without numbers.
+    return text.split('\n').filter(Boolean).map((step, index) => (
         <li key={index} className="mb-2 flex gap-2">
             <div className="flex-shrink-0 font-bold text-primary">{index + 1}.</div>
             <div>{step.replace(/^\d+\.\s*/, '').trim()}</div>
         </li>
     ));
 }
+
 
 function formatNutritionalInfo(text: string) {
     if (!text) return null;
