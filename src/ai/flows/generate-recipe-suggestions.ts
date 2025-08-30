@@ -19,10 +19,6 @@ const GenerateRecipeSuggestionsInputSchema = z.object({
     .string()
     .optional()
     .describe('Dietary restrictions such as vegetarian, vegan, or gluten-free.'),
-  cuisineType: z
-    .string()
-    .optional()
-    .describe('The type of cuisine the user prefers, e.g., Italian, Mexican, etc.'),
 });
 export type GenerateRecipeSuggestionsInput = z.infer<
   typeof GenerateRecipeSuggestionsInputSchema
@@ -62,10 +58,6 @@ Ingredients: {{{ingredients}}}
 
 {{#if dietaryRestrictions}}
 Dietary Restrictions: {{{dietaryRestrictions}}}
-{{/if}}
-
-{{#if cuisineType}}
-Cuisine Type: {{{cuisineType}}}
 {{/if}}
 
 Suggest 3 recipes, providing the recipe name, ingredients, step-by-step cooking instructions, and nutritional information for each recipe.

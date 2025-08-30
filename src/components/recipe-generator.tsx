@@ -3,11 +3,10 @@
 import { useState, useTransition } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { ChefHat, CookingPot, Leaf, Utensils } from 'lucide-react';
+import { ChefHat, CookingPot, Leaf } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
@@ -37,7 +36,6 @@ export function RecipeGenerator() {
     defaultValues: {
       ingredients: '',
       dietaryRestrictions: '',
-      cuisineType: '',
     },
   });
 
@@ -61,12 +59,12 @@ export function RecipeGenerator() {
     <div className="space-y-12">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 bg-card p-6 md:p-8 rounded-lg shadow-sm border">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-8">
             <FormField
               control={form.control}
               name="ingredients"
               render={({ field }) => (
-                <FormItem className="md:col-span-2">
+                <FormItem>
                   <FormLabel className="text-lg font-semibold flex items-center gap-2">
                     <CookingPot className="h-5 w-5"/>
                     What ingredients do you have?
@@ -95,7 +93,7 @@ export function RecipeGenerator() {
                     Dietary Restrictions
                   </FormLabel>
                   <Select 
-                    onValueChange={(value) => field.onChange(value === 'none' ? '' : value)} 
+                    onValueChange={(value) => field.onChange(value === 'None' ? '' : value)} 
                     defaultValue={field.value}
                   >
                     <FormControl>
@@ -105,7 +103,7 @@ export function RecipeGenerator() {
                     </FormControl>
                     <SelectContent>
                       {dietaryOptions.map((option) => (
-                        <SelectItem key={option} value={option === "None" ? "none" : option}>
+                        <SelectItem key={option} value={option}>
                           {option}
                         </SelectItem>
                       ))}
@@ -113,24 +111,6 @@ export function RecipeGenerator() {
                   </Select>
                   <FormDescription>
                     Optional: filter by dietary needs.
-                  </FormDescription>
-                </FormItem>
-              )}
-            />
-             <FormField
-              control={form.control}
-              name="cuisineType"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-semibold flex items-center gap-2">
-                    <Utensils className="h-5 w-5" />
-                    Cuisine Type
-                  </FormLabel>
-                  <FormControl>
-                    <Input placeholder="e.g., Italian, Mexican, Thai" {...field} />
-                  </FormControl>
-                   <FormDescription>
-                    Optional: prefer a specific cuisine?
                   </FormDescription>
                 </FormItem>
               )}

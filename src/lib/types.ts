@@ -5,7 +5,6 @@ export const recipeFormSchema = z.object({
     message: "Please enter at least one ingredient.",
   }),
   dietaryRestrictions: z.string().optional(),
-  cuisineType: z.string().optional(),
 });
 
 export type RecipeFormValues = z.infer<typeof recipeFormSchema>;
