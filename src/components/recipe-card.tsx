@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Apple, Beef, Flame } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -19,14 +20,14 @@ function formatInstructions(text: string) {
     if (steps.length <= 1 && text.includes('\n')) {
       return text.split('\n').filter(Boolean).map((step, index) => (
         <li key={index} className="mb-2 flex gap-2">
-            <div className="flex-shrink-0 font-bold">{index + 1}.</div>
+            <div className="flex-shrink-0 font-bold text-primary">{index + 1}.</div>
             <div>{step.trim()}</div>
         </li>
       ));
     }
     return steps.map((step, index) => (
         <li key={index} className="mb-2 flex gap-2">
-            <div className="flex-shrink-0 font-bold">{index + 1}.</div>
+            <div className="flex-shrink-0 font-bold text-primary">{index + 1}.</div>
             <div>{step.trim()}</div>
         </li>
     ));
@@ -40,22 +41,31 @@ function formatNutritionalInfo(text: string) {
 }
 
 export function RecipeCard({ recipe }: { recipe: Recipe }) {
+  const imageUrl = `https://picsum.photos/seed/${recipe.name.replace(/\s/g, '')}/600/400`;
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+      <div className="relative w-full h-48">
+        <Image
+            src={imageUrl}
+            alt={recipe.name}
+            fill
+            style={{ objectFit: 'cover' }}
+            data-ai-hint={recipe.imagePrompt}
+        />
+      </div>
       <CardHeader>
         <CardTitle className="text-2xl font-headline">{recipe.name}</CardTitle>
-        <CardDescription>A delicious meal idea based on your ingredients.</CardDescription>
       </CardHeader>
       <CardContent className="flex-grow space-y-4">
-        <Accordion type="single" collapsible className="w-full" defaultValue="ingredients">
+        <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="ingredients">
                 <AccordionTrigger className="text-lg font-semibold">
                     <div className="flex items-center gap-2">
-                        <Apple className="h-5 w-5"/> Ingredients
+                        <Apple className="h-5 w-5 text-primary"/> Ingredients
                     </div>
                 </AccordionTrigger>
                 <AccordionContent>
-                    <ul className="pt-2 space-y-1">
+                    <ul className="pt-2 space-y-1 text-muted-foreground">
                         {formatList(recipe.ingredients)}
                     </ul>
                 </AccordionContent>
@@ -63,11 +73,11 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
             <AccordionItem value="instructions">
                 <AccordionTrigger className="text-lg font-semibold">
                     <div className="flex items-center gap-2">
-                        <Flame className="h-5 w-5"/> Instructions
+                        <Flame className="h-5 w-5 text-primary"/> Instructions
                     </div>
                 </AccordionTrigger>
                 <AccordionContent>
-                    <ol className="pt-2 space-y-2">
+                    <ol className="pt-2 space-y-2 text-muted-foreground">
                         {formatInstructions(recipe.instructions)}
                     </ol>
                 </AccordionContent>
@@ -75,9 +85,9 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
         </Accordion>
       </CardContent>
       <CardFooter>
-        <div className="w-full space-y-2">
+        <div className="w-full space-y-3">
             <h4 className="font-semibold flex items-center gap-2">
-                <Beef className="h-5 w-5" />
+                <Beef className="h-5 w-5 text-primary" />
                 Nutritional Info
             </h4>
             <div className="flex flex-wrap gap-2">

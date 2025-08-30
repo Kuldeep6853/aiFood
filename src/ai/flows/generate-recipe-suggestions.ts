@@ -34,6 +34,11 @@ const GenerateRecipeSuggestionsOutputSchema = z.object({
         nutritionalInformation: z
           .string()
           .describe('Nutritional information (calories, fat, protein, carbs).'),
+        imagePrompt: z
+          .string()
+          .describe(
+            'A descriptive prompt for an image generation model to create a photo of the finished dish.'
+          ),
       })
     )
     .describe('An array of recipe suggestions.'),
@@ -61,6 +66,7 @@ Dietary Restrictions: {{{dietaryRestrictions}}}
 {{/if}}
 
 Suggest 3 recipes, providing the recipe name, ingredients, step-by-step cooking instructions, and nutritional information for each recipe.
+For each recipe, also provide a short, descriptive prompt that can be used to generate a photorealistic image of the finished dish.
 Ensure that the recipes adhere to any dietary restrictions specified.
 Output in JSON format.`,
 });

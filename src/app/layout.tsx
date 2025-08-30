@@ -1,6 +1,19 @@
 import type {Metadata} from 'next';
+import { Poppins } from 'next/font/google'
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '600', '700', '800'],
+  variable: '--font-body',
+});
+
+const headlineFont = Poppins({
+  subsets: ['latin'],
+  weight: ['800'],
+  variable: '--font-headline',
+});
 
 export const metadata: Metadata = {
   title: 'AI Recipe Assistant',
@@ -14,12 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
-      </head>
-      <body className="font-body antialiased">
+      <body className={`${poppins.variable} ${headlineFont.variable} font-body antialiased`}>
         {children}
         <Toaster />
       </body>
