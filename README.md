@@ -58,3 +58,38 @@ npm run genkit:watch
 This starts the Genkit process that makes your AI flows available to the application. Using `genkit:watch` will automatically restart the server when you make changes to your AI flows.
 
 Once both are running, you can open your browser to [http://localhost:9002](http://localhost:9002) to see the application in action!
+
+## Project Structure
+
+Here's an overview of the key files and directories in the project:
+
+```
+/
+|-- src/
+|   |-- app/
+|   |   |-- page.tsx (Main page)
+|   |   |-- layout.tsx (Root layout)
+|   |   |-- globals.css (Global styles)
+|   |   `-- actions.ts (Server actions)
+|   |-- ai/
+|   |   |-- genkit.ts (Genkit AI configuration)
+|   |   |-- dev.ts (Genkit development server entry)
+|   |   `-- flows/
+|   |       `-- generate-recipe-suggestions.ts (AI flow for recipe suggestions)
+|   |-- components/
+|   |   |-- ui/ (ShadCN UI components)
+|   |   |-- recipe-generator.tsx (The main form component)
+|   |   |-- recipe-card.tsx (Component to display a single recipe)
+|   |   `-- icons.tsx (Custom icon components)
+|   |-- lib/
+|   |   |-- utils.ts (Utility functions)
+|   |   `-- types.ts (TypeScript types and schemas)
+|   `-- hooks/
+|       |-- use-toast.ts (Toast hook)
+|       `-- use-mobile.ts (Hook to detect mobile devices)
+|-- public/ (Static assets)
+|-- package.json (Project dependencies and scripts)
+|-- next.config.ts (Next.js configuration)
+|-- tailwind.config.ts (Tailwind CSS configuration)
+`-- tsconfig.json (TypeScript configuration)
+```
