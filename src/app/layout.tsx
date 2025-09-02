@@ -31,8 +31,8 @@ export default function RootLayout({
         <div className="flex-grow">
           {children}
         </div>
-        <footer className="bg-background border-t py-4 mt-8">
-            <div className="container mx-auto px-4 text-center text-muted-foreground">
+        <footer className="bg-primary text-primary-foreground border-t py-4 mt-8">
+            <div className="container mx-auto px-4 text-center">
                 <p>&copy; {new Date().getFullYear()} AI Recipe Assistant. All Rights Reserved.</p>
             </div>
         </footer>
