@@ -101,11 +101,11 @@ export function RecipeGenerator() {
         <CardContent className="p-0">
           <Tabs defaultValue="ingredients" className="w-full">
             <TabsList className="grid w-full grid-cols-2 h-16 rounded-b-none">
-              <TabsTrigger value="ingredients" className="h-full text-lg gap-2">
-                <CookingPot className="h-6 w-6" /> Search by Ingredients
+              <TabsTrigger value="ingredients" className="h-full text-base md:text-lg gap-2">
+                <CookingPot className="h-6 w-6 hidden md:inline" /> Search by Ingredients
               </TabsTrigger>
-              <TabsTrigger value="dish" className="h-full text-lg gap-2">
-                <UtensilsCrossed className="h-6 w-6" /> Search by Dish Name
+              <TabsTrigger value="dish" className="h-full text-base md:text-lg gap-2">
+                <UtensilsCrossed className="h-6 w-6 hidden md:inline" /> Search by Dish Name
               </TabsTrigger>
             </TabsList>
             <TabsContent value="ingredients" className="p-6 md:p-8">
