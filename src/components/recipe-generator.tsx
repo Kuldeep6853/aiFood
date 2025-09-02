@@ -3,7 +3,7 @@
 import { useState, useTransition } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { ChefHat, CookingPot, Leaf, Sparkles, Search, UtensilsCrossed } from 'lucide-react';
+import { ChefHat, CookingPot, Leaf, Sparkles, Search, UtensilsCrossed, Users } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -53,6 +53,7 @@ export function RecipeGenerator() {
     defaultValues: {
       ingredients: '',
       dietaryRestrictions: 'None',
+      numberOfPeople: 2,
     },
   });
 
@@ -60,6 +61,7 @@ export function RecipeGenerator() {
     resolver: zodResolver(reverseRecipeFormSchema),
     defaultValues: {
       dishName: '',
+      numberOfPeople: 2,
     },
   });
 
@@ -112,61 +114,87 @@ export function RecipeGenerator() {
               <Form {...ingredientForm}>
               <form onSubmit={ingredientForm.handleSubmit(onIngredientSubmit)} className="space-y-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <FormField
-                      control={ingredientForm.control}
-                      name="ingredients"
-                      render={({ field }) => (
-                      <FormItem>
-                          <FormLabel className="text-xl font-semibold flex items-center gap-2">
-                          <CookingPot className="h-6 w-6 text-primary"/>
-                          Available Ingredients
-                          </FormLabel>
-                          <FormControl>
-                          <Textarea
-                              placeholder="e.g., chicken breast, broccoli, garlic, olive oil"
-                              className="resize-none h-36 text-base"
-                              {...field}
-                          />
-                          </FormControl>
-                          <FormDescription>
-                          Enter a comma-separated list of ingredients you have on hand.
-                          </FormDescription>
-                          <FormMessage />
-                      </FormItem>
-                      )}
-                  />
-                  <FormField
-                      control={ingredientForm.control}
-                      name="dietaryRestrictions"
-                      render={({ field }) => (
-                      <FormItem>
-                          <FormLabel className="text-xl font-semibold flex items-center gap-2">
-                          <Leaf className="h-6 w-6 text-primary"/>
-                          Dietary Preferences
-                          </FormLabel>
-                          <Select 
-                          onValueChange={field.onChange} 
-                          defaultValue={field.value}
-                          >
-                          <FormControl>
-                              <SelectTrigger className="text-base">
-                              <SelectValue placeholder="Any special dietary needs?" />
-                              </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                              {dietaryOptions.map((option) => (
-                              <SelectItem key={option} value={option}>
-                                  {option}
-                              </SelectItem>
-                              ))}
-                          </SelectContent>
-                          </Select>
-                          <FormDescription>
-                          Let us know if you have any dietary restrictions.
-                          </FormDescription>
-                      </FormItem>
-                      )}
-                  />
+                    <FormField
+                        control={ingredientForm.control}
+                        name="ingredients"
+                        render={({ field }) => (
+                        <FormItem className="md:col-span-2">
+                            <FormLabel className="text-xl font-semibold flex items-center gap-2">
+                            <CookingPot className="h-6 w-6 text-primary"/>
+                            Available Ingredients
+                            </FormLabel>
+                            <FormControl>
+                            <Textarea
+                                placeholder="e.g., chicken breast, broccoli, garlic, olive oil"
+                                className="resize-none h-36 text-base"
+                                {...field}
+                            />
+                            </FormControl>
+                            <FormDescription>
+                            Enter a comma-separated list of ingredients you have on hand.
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={ingredientForm.control}
+                        name="dietaryRestrictions"
+                        render={({ field }) => (
+                        <FormItem>
+                            <FormLabel className="text-xl font-semibold flex items-center gap-2">
+                            <Leaf className="h-6 w-6 text-primary"/>
+                            Dietary Preferences
+                            </FormLabel>
+                            <Select 
+                            onValueChange={field.onChange} 
+                            defaultValue={field.value}
+                            >
+                            <FormControl>
+                                <SelectTrigger className="text-base">
+                                <SelectValue placeholder="Any special dietary needs?" />
+                                </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                                {dietaryOptions.map((option) => (
+                                <SelectItem key={option} value={option}>
+                                    {option}
+                                </SelectItem>
+                                ))}
+                            </SelectContent>
+                            </Select>
+                            <FormDescription>
+                            Let us know if you have any dietary restrictions.
+                            </FormDescription>
+                        </FormItem>
+                        )}
+                    />
+                     <FormField
+                        control={ingredientForm.control}
+                        name="numberOfPeople"
+                        render={({ field }) => (
+                        <FormItem>
+                            <FormLabel className="text-xl font-semibold flex items-center gap-2">
+                                <Users className="h-6 w-6 text-primary"/>
+                                Number of People
+                            </FormLabel>
+                            <FormControl>
+                            <Input
+                                type="number"
+                                min="1"
+                                placeholder="e.g., 2"
+                                className="text-base h-12"
+                                {...field}
+                                onChange={event => field.onChange(+event.target.value)}
+                            />
+                            </FormControl>
+                            <FormDescription>
+                                How many people will you be cooking for?
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                        )}
+                    />
                   </div>
 
                   <Button type="submit" disabled={isPending} className="w-full md:w-auto transform transition-transform duration-200 hover:scale-105" size="lg">
@@ -190,29 +218,57 @@ export function RecipeGenerator() {
             <TabsContent value="dish" className="p-6 md:p-8">
               <Form {...dishForm}>
                 <form onSubmit={dishForm.handleSubmit(onDishSubmit)} className="space-y-8">
-                  <FormField
-                      control={dishForm.control}
-                      name="dishName"
-                      render={({ field }) => (
-                      <FormItem>
-                          <FormLabel className="text-xl font-semibold flex items-center gap-2">
-                            <Search className="h-6 w-6 text-primary"/>
-                            Dish Name
-                          </FormLabel>
-                          <FormControl>
-                          <Input
-                              placeholder="e.g., Chicken Alfredo, Gajar Ka Halwa"
-                              className="text-base h-12"
-                              {...field}
-                          />
-                          </FormControl>
-                          <FormDescription>
-                            Enter the name of the dish you'd like a recipe for.
-                          </FormDescription>
-                          <FormMessage />
-                      </FormItem>
-                      )}
-                  />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <FormField
+                        control={dishForm.control}
+                        name="dishName"
+                        render={({ field }) => (
+                        <FormItem>
+                            <FormLabel className="text-xl font-semibold flex items-center gap-2">
+                                <Search className="h-6 w-6 text-primary"/>
+                                Dish Name
+                            </FormLabel>
+                            <FormControl>
+                            <Input
+                                placeholder="e.g., Chicken Alfredo, Gajar Ka Halwa"
+                                className="text-base h-12"
+                                {...field}
+                            />
+                            </FormControl>
+                            <FormDescription>
+                                Enter the name of the dish you'd like a recipe for.
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                        )}
+                    />
+                     <FormField
+                        control={dishForm.control}
+                        name="numberOfPeople"
+                        render={({ field }) => (
+                        <FormItem>
+                            <FormLabel className="text-xl font-semibold flex items-center gap-2">
+                                <Users className="h-6 w-6 text-primary"/>
+                                Number of People
+                            </FormLabel>
+                            <FormControl>
+                            <Input
+                                type="number"
+                                min="1"
+                                placeholder="e.g., 2"
+                                className="text-base h-12"
+                                {...field}
+                                onChange={event => field.onChange(+event.target.value)}
+                            />
+                            </FormControl>
+                            <FormDescription>
+                                How many people will you be cooking for?
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                        )}
+                    />
+                  </div>
                    <Button type="submit" disabled={isPending} className="w-full md:w-auto transform transition-transform duration-200 hover:scale-105" size="lg">
                     {isPending ? (
                         <>

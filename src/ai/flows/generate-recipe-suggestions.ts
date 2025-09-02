@@ -35,8 +35,13 @@ Ingredients provided by user: {{{ingredients}}}
 Dietary Restrictions: {{{dietaryRestrictions}}}
 {{/if}}
 
+{{#if numberOfPeople}}
+Adjust the ingredient quantities for each recipe to serve {{{numberOfPeople}}} people.
+{{/if}}
+
+
 Suggest 3 recipes. For each recipe:
-1.  List all ingredients required.
+1.  List all ingredients required, scaled for the specified number of people if provided.
 2.  If any required ingredient is NOT in the user's provided list, suggest a smart and common alternative (e.g., "Butter (or olive oil)").
 3.  Provide simple, step-by-step cooking instructions.
 4.  Provide nutritional information.

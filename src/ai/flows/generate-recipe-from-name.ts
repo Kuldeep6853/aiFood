@@ -31,9 +31,13 @@ Given a dish name, you will provide a recipe for it.
 
 Dish name provided by user: {{{dishName}}}
 
+{{#if numberOfPeople}}
+Adjust the ingredient quantities for the recipe to serve {{{numberOfPeople}}} people.
+{{/if}}
+
 For the recipe:
 1.  Provide the name of the recipe, which should be the same as the dish name provided by the user.
-2.  List all required ingredients with quantities.
+2.  List all required ingredients with quantities, scaled for the specified number of people if provided.
 3.  Provide simple, step-by-step cooking instructions.
 4.  Provide nutritional information (calories, fat, protein, carbs).
 5.  Provide a short, descriptive prompt for generating a photorealistic image of the finished dish.
@@ -48,6 +52,9 @@ const generateRecipeFromNameFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await prompt(input);
+    if (output) {
+      output.name = input.dishName;
+    }
     return output!;
   }
 );
