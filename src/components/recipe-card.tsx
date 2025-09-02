@@ -50,6 +50,15 @@ function formatNutritionalInfo(text: string) {
 export function RecipeCard({ recipe }: { recipe: Recipe }) {
   return (
     <Card className="flex flex-col overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+      <div className="relative w-full h-48">
+        <Image 
+          src={`https://picsum.photos/600/400?random=${Math.random()}`}
+          alt={recipe.name}
+          fill
+          style={{ objectFit: 'cover' }}
+          data-ai-hint={recipe.imagePrompt.split(' ').slice(0, 2).join(' ')}
+        />
+      </div>
       <CardHeader>
         <CardTitle className="text-2xl font-headline">{recipe.name}</CardTitle>
       </CardHeader>
