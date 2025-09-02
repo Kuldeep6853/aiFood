@@ -15,6 +15,21 @@ export const reverseRecipeFormSchema = z.object({
   }),
 });
 
+const recipeSchema = z.object({
+  name: z.string().describe('The name of the recipe.'),
+  ingredients: z.string().describe('The ingredients required for the recipe.'),
+  instructions: z.string().describe('Step-by-step cooking instructions.'),
+  nutritionalInformation: z
+    .string()
+    .describe('Nutritional information (calories, fat, protein, carbs).'),
+  imagePrompt: z
+    .string()
+    .describe(
+      'A descriptive prompt for an image generation model to create a photo of the finished dish.'
+    ),
+});
+
+
 // Input schema for the recipe suggestions flow
 export const GenerateRecipeSuggestionsInputSchema = z.object({
     ingredients: z
@@ -32,21 +47,7 @@ export type GenerateRecipeSuggestionsInput = z.infer<
 // Output schema for the recipe suggestions flow
 export const GenerateRecipeSuggestionsOutputSchema = z.object({
     recipes: z
-      .array(
-        z.object({
-          name: z.string().describe('The name of the recipe.'),
-          ingredients: z.string().describe('The ingredients required for the recipe.'),
-          instructions: z.string().describe('Step-by-step cooking instructions.'),
-          nutritionalInformation: z
-            .string()
-            .describe('Nutritional information (calories, fat, protein, carbs).'),
-          imagePrompt: z
-            .string()
-            .describe(
-              'A descriptive prompt for an image generation model to create a photo of the finished dish.'
-            ),
-        })
-      )
+      .array(recipeSchema)
       .describe('An array of recipe suggestions.'),
   });
 export type GenerateRecipeSuggestionsOutput = z.infer<
@@ -64,5 +65,5 @@ export type GenerateRecipeFromNameInput = z.infer<
 >;
 
 // Output schema for the recipe-by-name flow
-export const GenerateRecipeFromNameOutputSchema = GenerateRecipeSuggestionsOutputSchema.shape.recipes.element;
+export const GenerateRecipeFromNameOutputSchema = recipeSchema;
 export type GenerateRecipeFromNameOutput = z.infer<typeof GenerateRecipeFromNameOutputSchema>;

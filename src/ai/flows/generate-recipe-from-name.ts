@@ -32,10 +32,11 @@ Given a dish name, you will provide a recipe for it.
 Dish name provided by user: {{{dishName}}}
 
 For the recipe:
-1.  List all required ingredients with quantities.
-2.  Provide simple, step-by-step cooking instructions.
-3.  Provide nutritional information (calories, fat, protein, carbs).
-4.  Provide a short, descriptive prompt for generating a photorealistic image of the finished dish.
+1.  Provide the name of the recipe, which should be the same as the dish name provided by the user.
+2.  List all required ingredients with quantities.
+3.  Provide simple, step-by-step cooking instructions.
+4.  Provide nutritional information (calories, fat, protein, carbs).
+5.  Provide a short, descriptive prompt for generating a photorealistic image of the finished dish.
 Output in JSON format.`,
 });
 
