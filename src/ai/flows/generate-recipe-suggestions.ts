@@ -57,16 +57,22 @@ const prompt = ai.definePrompt({
   name: 'generateRecipeSuggestionsPrompt',
   input: {schema: GenerateRecipeSuggestionsInputSchema},
   output: {schema: GenerateRecipeSuggestionsOutputSchema},
-  prompt: `You are a recipe suggestion AI. Given the ingredients a user has available, you will suggest recipes they can make.
+  prompt: `You are a recipe suggestion AI. Your language should be simple and easy to understand for a general audience; avoid jargon or overly technical cooking terms.
 
-Ingredients: {{{ingredients}}}
+Given the ingredients a user has available, you will suggest recipes they can make.
+
+Ingredients provided by user: {{{ingredients}}}
 
 {{#if dietaryRestrictions}}
 Dietary Restrictions: {{{dietaryRestrictions}}}
 {{/if}}
 
-Suggest 3 recipes, providing the recipe name, ingredients, step-by-step cooking instructions, and nutritional information for each recipe.
-For each recipe, also provide a short, descriptive prompt that can be used to generate a photorealistic image of the finished dish.
+Suggest 3 recipes. For each recipe:
+1.  List all ingredients required.
+2.  If any required ingredient is NOT in the user's provided list, suggest a smart and common alternative (e.g., "Butter (or olive oil)").
+3.  Provide simple, step-by-step cooking instructions.
+4.  Provide nutritional information.
+5.  Provide a short, descriptive prompt for generating a photorealistic image of the finished dish.
 Ensure that the recipes adhere to any dietary restrictions specified.
 Output in JSON format.`,
 });
