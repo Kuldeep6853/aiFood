@@ -1,10 +1,7 @@
 import { z } from 'zod';
+import { recipeFormSchema, reverseRecipeFormSchema } from './schemas';
 
-export const recipeFormSchema = z.object({
-  ingredients: z.string().min(3, {
-    message: "Please enter at least three characters.",
-  }),
-  dietaryRestrictions: z.string().optional(),
-});
+export type RecipeFormValues = z.infer<typeof recipeFormPojso>;
 
-export type RecipeFormValues = z.infer<typeof recipeFormSchema>;
+
+export type ReverseRecipeFormValues = z.infer<typeof reverseRecipeFormSchema>;

@@ -1,7 +1,7 @@
 import { Apple, Beef, Flame } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import type { GenerateRecipeSuggestionsOutput } from '@/ai/flows/generate-recipe-suggestions';
+import type { GenerateRecipeSuggestionsOutput } from '@/lib/schemas';
 import { Badge } from '@/components/ui/badge';
 
 type Recipe = GenerateRecipeSuggestionsOutput['recipes'][0];

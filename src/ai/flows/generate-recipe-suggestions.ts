@@ -4,48 +4,16 @@
  * @fileOverview AI-powered recipe suggestion flow.
  *
  * - generateRecipeSuggestions - A function that suggests recipes based on ingredients.
- * - GenerateRecipeSuggestionsInput - The input type for the generateRecipeSuggestions function.
- * - GenerateRecipeSuggestionsOutput - The return type for the generateRecipeSuggestions function.
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import {
+    GenerateRecipeSuggestionsInput,
+    GenerateRecipeSuggestionsInputSchema,
+    GenerateRecipeSuggestionsOutput,
+    GenerateRecipeSuggestionsOutputSchema,
+} from '@/lib/schemas';
 
-const GenerateRecipeSuggestionsInputSchema = z.object({
-  ingredients: z
-    .string()
-    .describe('A comma-separated list of ingredients the user has available.'),
-  dietaryRestrictions: z
-    .string()
-    .optional()
-    .describe('Dietary restrictions such as vegetarian, vegan, or gluten-free.'),
-});
-export type GenerateRecipeSuggestionsInput = z.infer<
-  typeof GenerateRecipeSuggestionsInputSchema
->;
-
-const GenerateRecipeSuggestionsOutputSchema = z.object({
-  recipes: z
-    .array(
-      z.object({
-        name: z.string().describe('The name of the recipe.'),
-        ingredients: z.string().describe('The ingredients required for the recipe.'),
-        instructions: z.string().describe('Step-by-step cooking instructions.'),
-        nutritionalInformation: z
-          .string()
-          .describe('Nutritional information (calories, fat, protein, carbs).'),
-        imagePrompt: z
-          .string()
-          .describe(
-            'A descriptive prompt for an image generation model to create a photo of the finished dish.'
-          ),
-      })
-    )
-    .describe('An array of recipe suggestions.'),
-});
-export type GenerateRecipeSuggestionsOutput = z.infer<
-  typeof GenerateRecipeSuggestionsOutputSchema
->;
 
 export async function generateRecipeSuggestions(
   input: GenerateRecipeSuggestionsInput
