@@ -44,9 +44,9 @@ export default function RootLayout({
             {children}
           </div>
           <div className="container mx-auto px-4 mt-8">
-              <div className="bg-amber-100 border-l-4 border-amber-500 text-amber-700 p-4 rounded-md" role="alert">
+              <div className="bg-amber-100 dark:bg-amber-900/30 border-l-4 border-amber-500 dark:border-amber-500 text-amber-800 dark:text-amber-300 p-4 rounded-md" role="alert">
                   <div className="flex">
-                      <div className="py-1"><AlertTriangle className="h-5 w-5 text-amber-500 mr-3" /></div>
+                      <div className="py-1"><AlertTriangle className="h-5 w-5 text-amber-500 dark:text-amber-400 mr-3" /></div>
                       <div>
                           <p className="font-bold">A Note on AI Recipes</p>
                           <p className="text-sm">While our AI provides creative suggestions, always use your best judgment. Please review ingredients and instructions carefully. Happy cooking!</p>
