@@ -93,3 +93,4 @@ Here's an overview of the key files and directories in the project:
 |-- tailwind.config.ts (Tailwind CSS configuration)
 `-- tsconfig.json (TypeScript configuration)
 ```
+# aiFood
